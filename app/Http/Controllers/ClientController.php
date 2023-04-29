@@ -365,35 +365,35 @@ class ClientController extends Controller
      *         description="List of clients",
      *         @OA\JsonContent(
      *          @OA\Property(property="id", type="number", example=1),
-    *              @OA\Property(property="name", type="string", example="Carlos Henrique"),
-    *              @OA\Property(property="email", type="string", example="email@gmail.com"),
-    *              @OA\Property(property="phone", type="string", example="99999999"),
-    *              @OA\Property(
-    *                  property="address",
-    *                  type="object",
-    *                  @OA\Property(
-    *                      property="cep",
-    *                      type="string",
-    *                      example="55730000"
-    *                  ),
-    *                  @OA\Property(
-    *                      property="number",
-    *                      type="integer",
-    *                      example=5
-    *                  ),
-    *                  @OA\Property(
-    *                      property="neighborhood",
-    *                      type="string",
-    *                      example="Derby"
-    *                  ),
-    *                  @OA\Property(
-    *                      property="city",
-    *                      type="string",
-    *                      example="Bom Jardim"
-    *                  ),
-    *              ),
-    *              @OA\Property(property="updated_at", type="string", example="2021-12-11T09:25:53.000000Z"),
-    *              @OA\Property(property="created_at", type="string", example="2021-12-11T09:25:53.000000Z"),
+     *              @OA\Property(property="name", type="string", example="Carlos Henrique"),
+     *              @OA\Property(property="email", type="string", example="email@gmail.com"),
+     *              @OA\Property(property="phone", type="string", example="99999999"),
+     *              @OA\Property(
+     *                  property="address",
+     *                  type="object",
+     *                  @OA\Property(
+     *                      property="cep",
+     *                      type="string",
+     *                      example="55730000"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="number",
+     *                      type="integer",
+     *                      example=5
+     *                  ),
+     *                  @OA\Property(
+     *                      property="neighborhood",
+     *                      type="string",
+     *                      example="Derby"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="city",
+     *                      type="string",
+     *                      example="Bom Jardim"
+     *                  ),
+     *              ),
+     *              @OA\Property(property="updated_at", type="string", example="2021-12-11T09:25:53.000000Z"),
+     *              @OA\Property(property="created_at", type="string", example="2021-12-11T09:25:53.000000Z"),
      *         )
      *     ),
      *     @OA\Response(

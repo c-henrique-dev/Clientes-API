@@ -19,7 +19,6 @@ use App\Http\Controllers\UserController;
 |
 */
 
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/users', [UserController::class, 'store']);
     Route::put('/clients/{id}', [ClientController::class, 'update']);
