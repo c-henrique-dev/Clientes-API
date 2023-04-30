@@ -32,10 +32,6 @@ Install all the dependencies using composer
 Copy the example env file and make the required configuration changes in the .env file
 
     cp .env.example .env
-    
-Add value "true" in env L5_SWAGGER_GENERATE_ALWAYS to enable swagger
-
-    L5_SWAGGER_GENERATE_ALWAYS=true
 
 Generate a new application key
 
