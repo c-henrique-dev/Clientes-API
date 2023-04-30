@@ -12,117 +12,127 @@ use OpenApi\Annotations as OA;
 
 class ClientController extends Controller
 {
-/**
- * @OA\Post (
- *     path="/api/clients",
- *     tags={"Clients"},
- *     security={ {"sanctum": {} }},
- *     summary="Create a new client",
- *     description="Create a new client",
- *     @OA\RequestBody(
- *         @OA\MediaType(
- *             mediaType="application/json",
- *             @OA\Schema(
- *                 @OA\Property(
- *                      type="object",
- *                      @OA\Property(
- *                          property="name",
- *                          type="string"
- *                      ),
- *                      @OA\Property(
- *                          property="email",
- *                          type="string"
- *                      ),
- *                      @OA\Property(
- *                          property="phone",
- *                          type="string"
- *                      ),
- *                      @OA\Property(
- *                          property="user_id",
- *                          type="integer"
- *                      ),
- *                      @OA\Property(
- *                          property="address",
- *                          type="object",
- *                          @OA\Property(
- *                              property="cep",
- *                              type="string"
- *                          ),
- *                          @OA\Property(
- *                              property="number",
- *                              type="integer"
- *                          ),
- *                          @OA\Property(
- *                              property="neighborhood",
- *                              type="string"
- *                          ),
- *                          @OA\Property(
- *                              property="city",
- *                              type="string"
- *                          ),
- *                      ),
- * 
- *                 ),
- *                 example={
- *                     "name":"Carlos Henrique",
- *                     "email":"email@gmail.com",
- *                     "phone":"99999999",
- *                     "user_id":1,
- *                     "address": {
- *                          "cep":"55730000",
- *                          "number":5,
- *                          "neighborhood":"Derby",
- *                          "city":"Bom Jardim"
- *                     }
- *                }
- *             )
- *         )
- *      ),
- *      @OA\Response(
- *          response=200,
- *          description="success",
- *          @OA\JsonContent(
- *              @OA\Property(property="id", type="number", example=1),
- *              @OA\Property(property="name", type="string", example="Carlos Henrique"),
- *              @OA\Property(property="email", type="string", example="email@gmail.com"),
- *              @OA\Property(property="phone", type="string", example="99999999"),
- *              @OA\Property(
- *                  property="address",
- *                  type="object",
- *                  @OA\Property(
- *                      property="cep",
- *                      type="string",
- *                      example="55730000"
- *                  ),
- *                  @OA\Property(
- *                      property="number",
- *                      type="integer",
- *                      example=5
- *                  ),
- *                  @OA\Property(
- *                      property="neighborhood",
- *                      type="string",
- *                      example="Derby"
- *                  ),
- *                  @OA\Property(
- *                      property="city",
- *                      type="string",
- *                      example="Bom Jardim"
- *                  ),
- *              ),
- *              @OA\Property(property="updated_at", type="string", example="2021-12-11T09:25:53.000000Z"),
- *              @OA\Property(property="created_at", type="string", example="2021-12-11T09:25:53.000000Z"),
- *          )
- *      ),
- *      @OA\Response(
- *          response=400,
- *          description="invalid",
- *          @OA\JsonContent(
- *              @OA\Property(property="msg", type="string", example="fail"),
- *          )
- *      )
- * )
- */
+    /**
+     * @OA\Post (
+     *     path="/api/clients",
+     *     tags={"Clients"},
+     *     security={ {"sanctum": {} }},
+     *     summary="Create a new client",
+     *     description="Create a new client",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                      type="object",
+     *                      @OA\Property(
+     *                          property="name",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="email",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="phone",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="user_id",
+     *                          type="integer"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="address",
+     *                          type="object",
+     *                          @OA\Property(
+     *                              property="cep",
+     *                              type="string"
+     *                          ),
+     *                          @OA\Property(
+     *                              property="number",
+     *                              type="integer"
+     *                          ),
+     *                          @OA\Property(
+     *                              property="neighborhood",
+     *                              type="string"
+     *                          ),
+     *                          @OA\Property(
+     *                              property="city",
+     *                              type="string"
+     *                          ),
+     *                         @OA\Property(
+     *                              property="state",
+     *                              type="string"
+     *                          ),
+     *                      ),
+     * 
+     *                 ),
+     *                 example={
+     *                     "name":"Carlos Henrique",
+     *                     "email":"email@gmail.com",
+     *                     "phone":"99999999",
+     *                     "user_id":1,
+     *                     "address": {
+     *                          "cep":"55730000",
+     *                          "number":5,
+     *                          "neighborhood":"Derby",
+     *                          "city":"Bom Jardim",
+     *                          "state":"PE",
+     *                     }
+     *                }
+     *             )
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="id", type="number", example=1),
+     *              @OA\Property(property="name", type="string", example="Carlos Henrique"),
+     *              @OA\Property(property="email", type="string", example="email@gmail.com"),
+     *              @OA\Property(property="phone", type="string", example="99999999"),
+     *              @OA\Property(
+     *                  property="address",
+     *                  type="object",
+     *                  @OA\Property(
+     *                      property="cep",
+     *                      type="string",
+     *                      example="55730000"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="number",
+     *                      type="integer",
+     *                      example=5
+     *                  ),
+     *                  @OA\Property(
+     *                      property="neighborhood",
+     *                      type="string",
+     *                      example="Derby"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="city",
+     *                      type="string",
+     *                      example="Bom Jardim"
+     *                  ),
+     *                 @OA\Property(
+     *                      property="state",
+     *                      type="string",
+     *                      example="PE"
+     *                  ),
+     *              ),
+     *              @OA\Property(property="updated_at", type="string", example="2021-12-11T09:25:53.000000Z"),
+     *              @OA\Property(property="created_at", type="string", example="2021-12-11T09:25:53.000000Z"),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="invalid",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="msg", type="string", example="fail"),
+     *          )
+     *      )
+     * )
+     */
     public function store(Request $request) {
 
         $validator = Validator::make($request->all(), [
@@ -150,7 +160,8 @@ class ClientController extends Controller
         $address->cep = $request->address['cep'];
         $address->number = $request->address['number'];
         $address->neighborhood = $request->address['neighborhood'];
-        $address->city = $request->address['city'];   
+        $address->city = $request->address['city'];  
+        $address->state = $request->address['state']; 
         $address->client_id = $client->id;
         $address->save();
 
@@ -160,7 +171,7 @@ class ClientController extends Controller
       
     }
 
-        /**
+           /**
      * @OA\Put(
      *      path="/api/clients/{id}",
      *      operationId="updateClient",
@@ -247,6 +258,7 @@ class ClientController extends Controller
             $address->number = $request->address['number'];
             $address->neighborhood = $request->address['neighborhood'];
             $address->city = $request->address['city'];
+            $address->state = $request->address['state'];
             $address->save();
         }
 
@@ -434,6 +446,56 @@ class ClientController extends Controller
 
     return response()->json($clients);
 }
+
+    /**
+     * @OA\Get(
+     *     path="/api/clients/stats",
+     *     summary="Get statistics of clients by city and state",
+     *     tags={"Clients"},
+     *     security={ {"sanctum": {} }},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(
+     *                 @OA\Property(
+     *                     property="city",
+     *                     type="string",
+     *                     example="New York"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="state",
+     *                     type="string",
+     *                     example="NY"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="total",
+     *                     type="integer",
+     *                     example=10
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized"
+     *     ),
+     *     @OA\Response(
+     *         response="403",
+     *         description="Forbidden"
+     *     ),
+     * )
+     */
+    public function stats() {
+        $stats = Client::join('address', 'clients.id', '=', 'address.client_id')
+        ->select('address.city', 'address.state', DB::raw('count(*) as total'))
+        ->groupBy('address.city', 'address.state')
+        ->get();
+
+        return response()->json($stats);
+    }
+
 
     
 }
