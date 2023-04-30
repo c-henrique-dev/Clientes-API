@@ -20,12 +20,15 @@ use App\Http\Controllers\UserController;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/users', [UserController::class, 'store']);
     Route::put('/clients/{id}', [ClientController::class, 'update']);
     Route::delete('/clients/{id}', [ClientController::class, 'destroy']);
     Route::post('/clients', [ClientController::class, 'store']);
     Route::get('/clients', [ClientController::class, 'index']);
+    Route::get('/clients/stats', [ClientController::class, 'stats']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::put('/users/profile', [UserController::class, 'updateUserProfile']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/users', [UserController::class, 'store']);
+
