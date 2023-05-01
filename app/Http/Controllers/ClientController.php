@@ -440,10 +440,10 @@ class ClientController extends Controller
     }
 
     if(!$request->take) {
-        $clients = $query->paginate(5);
+        $clients = $query->where('user_id', auth()->id())->paginate(5);
     }
 
-    $clients = $query->paginate($request->take);
+    $clients = $query->where('user_id', auth()->id())->paginate($request->take);
 
     return response()->json($clients);
 }
