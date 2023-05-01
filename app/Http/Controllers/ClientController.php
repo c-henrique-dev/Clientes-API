@@ -268,7 +268,7 @@ class ClientController extends Controller
         ]);
     }
 
-        /**
+    /**
      * @OA\Delete(
      *      path="/api/clients/{id}",
      *      operationId="deleteClient",
@@ -330,7 +330,7 @@ class ClientController extends Controller
         ]);
     }
 
-        /**
+    /**
      * @OA\Get(
      *     path="/api/clients",
      *     summary="List clients",

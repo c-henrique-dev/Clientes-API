@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
 
-        /**
+    /**
      * Authenticate user and generate access token
      *
      * @OA\Post(
@@ -58,7 +58,7 @@ class AuthController extends Controller
         ], 401);
     }
 
-        /**
+    /**
      *
      * @OA\Post(
      *      path="/api/logout",

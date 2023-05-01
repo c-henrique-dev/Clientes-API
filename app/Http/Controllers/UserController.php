@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
 
-        /**
+    /**
      * @OA\Post(
      *     path="/api/users",
      *     summary="Create a new user",
@@ -46,6 +46,18 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = new User;
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
+        ],
+    );
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
@@ -54,7 +66,7 @@ class UserController extends Controller
         return response()->json($user, 201);
     }
 
-        /**
+    /**
      * @OA\Put(
      *     path="/api/users/profile",
      *     summary="Update user profile",
@@ -101,7 +113,7 @@ class UserController extends Controller
             $user = auth()->user();
          
             $validator = Validator::make($request->all(), [
-                'password' => 'nullable|string|min:8',
+                'password' => 'required|string|min:8',
                 'new_password' => 'required_with:password|string|min:8|different:password|same:confirm_password',
                 'confirm_password' => 'required_with:password|string|min:8|same:new_password',
             ],
