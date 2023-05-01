@@ -110,39 +110,38 @@ class UserController extends Controller
      */
     public function updateUserProfile(Request $request)
     {
-            $user = auth()->user();
+        $user = auth()->user();
          
-            $validator = Validator::make($request->all(), [
-                'password' => 'required|string|min:8',
-                'new_password' => 'required_with:password|string|min:8|different:password|same:confirm_password',
-                'confirm_password' => 'required_with:password|string|min:8|same:new_password',
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string|min:8',
+            'new_password' => 'required_with:password|string|min:8|different:password|same:confirm_password',
+            'confirm_password' => 'required_with:password|string|min:8|same:new_password',
             ],
         );
         
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()]);
-            }
-        
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }
     
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $current_password = $request->current_password;
-            $new_password = $request->new_password;
-            $confirm_password = $request->confirm_password;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $current_password = $request->current_password;
+        $new_password = $request->new_password;
+        $confirm_password = $request->confirm_password;
     
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()]);
-            }
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }
     
-            if(!Hash::check($request->password, $user->password)) {
-                return response()->json(['message' => 'password does not match']);
-            }
+        if(!Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'password does not match']);
+        }
     
-            $user->password = bcrypt($confirm_password);
+        $user->password = bcrypt($confirm_password);
     
-            $user->save();
+        $user->save();
     
-            return response()->json(['message' => 'Profile updated successfully']);
+        return response()->json(['message' => 'Profile updated successfully']);
     }
 
 }
