@@ -113,7 +113,7 @@ class UserController extends Controller
         $user = auth()->user();
          
         $validator = Validator::make($request->all(), [
-            'password' => 'required|string|min:8',
+            'current_password' => 'required|string|min:8',
             'new_password' => 'required_with:password|string|min:8|different:password|same:confirm_password',
             'confirm_password' => 'required_with:password|string|min:8|same:new_password',
             ],
@@ -133,7 +133,7 @@ class UserController extends Controller
             return response()->json(['errors' => $validator->errors()]);
         }
     
-        if(!Hash::check($request->password, $user->password)) {
+        if(!Hash::check($current_password, $user->password)) {
             return response()->json(['message' => 'password does not match']);
         }
     
