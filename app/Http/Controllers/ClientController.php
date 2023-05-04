@@ -172,7 +172,7 @@ class ClientController extends Controller
       
     }
 
-           /**
+    /**
      * @OA\Put(
      *      path="/api/clients/{id}",
      *      operationId="updateClient",
@@ -204,7 +204,8 @@ class ClientController extends Controller
      *                  @OA\Property(property="cep", type="string", example="12345678"),
      *                  @OA\Property(property="number", type="integer", example=123),
      *                  @OA\Property(property="neighborhood", type="string", example="Centro"),
-     *                  @OA\Property(property="city", type="string", example="São Paulo")
+     *                  @OA\Property(property="city", type="string", example="São Paulo"),
+     *                  @OA\Property(property="state", type="string", example="PE")
      *              )
      *          )
      *      ),
@@ -443,7 +444,7 @@ class ClientController extends Controller
         $clients = $query->where('user_id', auth()->id())->paginate(5);
     }
 
-    $clients = $query->where('user_id', auth()->id())->paginate($request->take);
+    $clients = $query->with('address')->where('user_id', auth()->id())->paginate($request->take);
 
     return response()->json($clients);
 }
