@@ -451,6 +451,10 @@
                                             "city": {
                                                 "type": "string",
                                                 "example": "São Paulo"
+                                            },
+                                            "state": {
+                                                "type": "string",
+                                                "example": "PE"
                                             }
                                         },
                                         "type": "object"
@@ -637,6 +641,583 @@
                 "security": [
                     {
                         "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/orders": {
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Create a new order",
+                "description": "Create a new order and associated items",
+                "operationId": "createOrder",
+                "requestBody": {
+                    "description": "Order object that needs to be created",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "client": {
+                                        "description": "The ID of the client that is placing the order",
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "total": {
+                                        "description": "The total value of the order",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "50.99"
+                                    },
+                                    "items": {
+                                        "description": "The list of items in the order",
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "product": {
+                                                    "description": "The ID of the product being ordered",
+                                                    "type": "string",
+                                                    "example": "3"
+                                                },
+                                                "quantity": {
+                                                    "description": "The quantity of the product being ordered",
+                                                    "type": "integer",
+                                                    "example": "2"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The newly created order",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "description": "The ID of the newly created order",
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "total": {
+                                            "description": "The total value of the order",
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "50.99"
+                                        },
+                                        "client_id": {
+                                            "description": "The ID of the client that placed the order",
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "status": {
+                                            "description": "The status of the order",
+                                            "type": "string",
+                                            "example": "REALIZADO"
+                                        },
+                                        "created_at": {
+                                            "description": "The timestamp when the order was created",
+                                            "type": "string",
+                                            "example": "2023-05-04T10:00:00.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "description": "The timestamp when the order was last updated",
+                                            "type": "string",
+                                            "example": "2023-05-04T10:00:00.000000Z"
+                                        },
+                                        "orders_items": {
+                                            "description": "The list of items in the order",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "The ID of the order item",
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "quantity": {
+                                                        "description": "The quantity of the product being ordered",
+                                                        "type": "integer",
+                                                        "example": "2"
+                                                    },
+                                                    "product_id": {
+                                                        "description": "The ID of the product being ordered",
+                                                        "type": "integer",
+                                                        "example": "3"
+                                                    },
+                                                    "created_at": {
+                                                        "description": "The timestamp when the order item was created",
+                                                        "type": "string",
+                                                        "example": "2023-05-04T10:00:00.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "description": "The timestamp when the order item was last updated",
+                                                        "type": "string",
+                                                        "example": "2023-05-04T10:00:00.000000Z"
+                                                    },
+                                                    "product": {
+                                                        "description": "The product being ordered",
+                                                        "properties": {
+                                                            "id": {
+                                                                "description": "The ID of the product",
+                                                                "type": "integer",
+                                                                "example": "3"
+                                                            },
+                                                            "name": {
+                                                                "description": "The name of the product",
+                                                                "type": "string",
+                                                                "example": "Product Name"
+                                                            },
+                                                            "price": {
+                                                                "description": "The price of the product",
+                                                                "type": "number",
+                                                                "format": "float",
+                                                                "example": "25.49"
+                                                            },
+                                                            "created_at": {
+                                                                "description": "The timestamp when the product was created",
+                                                                "type": "string",
+                                                                "example": "2023-05-04T10:00:00.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "description": "The timestamp when the product was last updated",
+                                                                "type": "string",
+                                                                "example": "2023-05-04T10:00:00.000000Z"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "The error message",
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "description": "The list of validation errors",
+                                            "type": "object",
+                                            "example": {
+                                                "client": [
+                                                    "The selected client is invalid."
+                                                ],
+                                                "items.0.product": [
+                                                    "The selected items.0.product is invalid."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/orders/{id}/cancel": {
+            "put": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Cancel an order",
+                "description": "Cancel an order",
+                "operationId": "248062531c2e7d9db386df51e206e63b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the order to be canceled",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully updated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Order not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Order not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "List products",
+                "description": "Returns a list of products, filtered by description and price paginated by 5 items per page.",
+                "operationId": "1bfaa78d1c2c3848ab8165c5dadcad3e",
+                "parameters": [
+                    {
+                        "name": "take",
+                        "in": "query",
+                        "description": "Selects a specified number of elements",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Filter products by description (case insensitive).",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "Filter clients by price (case insensitive).",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of products",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "Notebook"
+                                        },
+                                        "price": {
+                                            "type": "number",
+                                            "example": "3000"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2021-12-11T09:25:53.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2021-12-11T09:25:53.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Create a new product",
+                "description": "Save a new product in the database.",
+                "operationId": "e8185e307706e2cd84bbcf5171e2f09d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "description": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Produto A"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "minimum": 0,
+                                        "example": 99.99
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Product created successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "maxLength": 255,
+                                            "example": "Produto A"
+                                        },
+                                        "price": {
+                                            "type": "number",
+                                            "minimum": 0,
+                                            "example": 99.99
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "datetime",
+                                            "example": "2023-05-04 12:34:56"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "datetime",
+                                            "example": "2023-05-04 12:34:56"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/products/{id}": {
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Delete a product by ID",
+                "description": "Delete a product by its ID",
+                "operationId": "deleteProductById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully deleted product!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Update an existing product",
+                "operationId": "updateProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the product to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "description": {
+                                        "description": "The product description",
+                                        "type": "string",
+                                        "maxLength": 255
+                                    },
+                                    "price": {
+                                        "description": "The product price",
+                                        "type": "number",
+                                        "format": "float",
+                                        "minimum": 0
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "description": "New product description",
+                                    "price": 9.99
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Product updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Updated product!"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Product not found."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
                     }
                 ]
             }
