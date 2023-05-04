@@ -111,7 +111,6 @@ class ProductController extends Controller
      *             example={"message": "Product not found."}
      *         )
      *     ),
-     *     security={{"bearerAuth": {}}}
      * )
      */
     public function update(Request $request, $id)
