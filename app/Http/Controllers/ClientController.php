@@ -437,7 +437,7 @@ class ClientController extends Controller
     }
 
     if ($request->has('phone')) {
-        $query->where('phone', 'like', '%'.$request->phone.'%');
+        $query->where('phone', '=', $request->phone);
     }
 
     if(!$request->take) {
