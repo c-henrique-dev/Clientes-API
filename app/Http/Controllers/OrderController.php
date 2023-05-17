@@ -240,7 +240,90 @@ class OrderController extends Controller{
         return $order;
     }
 
-    public function index(Request $request, $id)  {
+    /**
+     * @OA\Get(
+     *     path="/api/orders/{id}",
+     *     summary="Get order information",
+     *     description="Retrieve order information by ID",
+     *     operationId="getOrderById",
+     *     security={ {"sanctum": {} }},
+     *     tags={"Orders"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Order ID",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="code",
+     *                 type="integer",
+     *                 example=1
+     *             ),
+     *             @OA\Property(
+     *                 property="orderDate",
+     *                 type="string",
+     *                 example="17/05/2023"
+     *             ),
+     *             @OA\Property(
+     *                 property="clientName",
+     *                 type="string",
+     *                 example="example"
+     *             ),
+     *             @OA\Property(
+     *                 property="total",
+     *                 type="string",
+     *                 example="4000.00"
+     *             ),
+     *             @OA\Property(
+     *                 property="status",
+     *                 type="string",
+     *                 example="REALIZADO"
+     *             ),
+     *             @OA\Property(
+     *                 property="items",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     @OA\Property(
+     *                         property="productDescription",
+     *                         type="string",
+     *                         example="TV"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="price",
+     *                         type="string",
+     *                         example="4000.00"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="quantity",
+     *                         type="integer",
+     *                         example=2
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Order not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="Order not found."
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function getById(Request $request, $id)  {
         $order = Order::with(['ordersItems', 'client'])->find($id);
 
         if (!$order) {
