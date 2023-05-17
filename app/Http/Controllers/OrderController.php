@@ -34,13 +34,6 @@ class OrderController extends Controller{
      *                 example="1"
      *             ),
      *             @OA\Property(
-     *                 property="total",
-     *                 type="number",
-     *                 format="float",
-     *                 description="The total value of the order",
-     *                 example="50.99"
-     *             ),
-     *             @OA\Property(
      *                 property="items",
      *                 type="array",
      *                 description="The list of items in the order",
@@ -210,7 +203,6 @@ class OrderController extends Controller{
 
         $validator = $request->validate([
             'client' => 'required|string|exists:clients,id',
-            'total' => 'required|numeric|min:0',
             'items.*.product' => 'required|string|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',
         ]);
@@ -222,16 +214,19 @@ class OrderController extends Controller{
         }
     
         $order = new Order();
-        $order->total = $validator['total'];
         $order->client_id = $client->id;
         $order->status = OrderStatus::REALIZADO->value;
-        $order->save();
+
+        $total = 0;        
 
         foreach ($validator['items'] as $item) {
             $product = Product::findOrFail($item['product']);
             $orderItem = new OrderItem();
             $orderItem->quantity = $item['quantity'];
             $orderItem->product_id = $product->id;
+            $total += $product->price * $item['quantity'];
+            $order->total = $total;
+            $order->save();
             $order->ordersItems()->save($orderItem);
         }
 

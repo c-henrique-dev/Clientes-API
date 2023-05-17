@@ -665,12 +665,6 @@
                                         "type": "string",
                                         "example": "1"
                                     },
-                                    "total": {
-                                        "description": "The total value of the order",
-                                        "type": "number",
-                                        "format": "float",
-                                        "example": "50.99"
-                                    },
                                     "items": {
                                         "description": "The list of items in the order",
                                         "type": "array",
